@@ -17,6 +17,12 @@ main()
  * running and listen for requests. testtest
  */
 
+ async function main() {
+    await waitForDatabase().catch(e => crash<Core>(e))
+    const devMode = process.argv.includes("dev") // what could go wrong?
+    const events: EventSystem = new EventSystem(devMode) // flag sets debug mode
+    await Core.create(PLUGIN_PATHS, events).catch(e => crash<Core>(e))
+}
 
 async function waitForDatabase() {
     let connected = false
