@@ -1,0 +1,22 @@
+{
+    "name": "dekanat-app-plugin",
+    "version": "0.1.0",
+    "description": "A core plugin with GUI-specific methods.",
+    "private": true,
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "tsc --build",
+        "lint": "cross-env NODE_ENV=development eslint src",
+        "lint:fix": "npm run lint -- --fix",
+        "lint:production": "cross-env NODE_ENV=production eslint src"
+    },
+    "dependencies": {
+        "@intutable/core": "^0.1.6",
+        "@intutable/database": "^3.0.0",
+        "@intutable/http": "^0.1.5",
+        "@intutable/http-cors": "^0.1.0",
+        "@intutable/lazy-views": "^5.1.0",
+        "@intutable/project-management": "^1.1.0",
+        "@intutable/user-authentication": "^2.0.0"
+    }
+}

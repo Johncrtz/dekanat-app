@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "baseUrl": "./src",
+        "experimentalDecorators": true,
+        "paths": {
+            "@shared/*": ["../../shared/src/*"],
+            "@backend/*": ["../../dekanat-app-plugin/src/*"],
+            "@datagrid/*": ["components/DataGrid/*"]
+        }
+    },
+    "include": ["src", "next-env.d.ts"],
+    "exclude": [
+        "node_modules",
+        "backend",
+        "src/backend",
+        "database",
+        "**/__tests/**/*.test.ts"
+    ]
+}

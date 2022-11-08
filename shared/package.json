@@ -1,0 +1,11 @@
+{
+    "name": "shared",
+    "version": "0.1.0",
+    "description": "source code shared across frontend and backend.",
+    "private": true,
+    "scripts": {
+        "lint": "cross-env NODE_ENV=development eslint src",
+        "lint:fix": "npm run lint -- --fix",
+        "lint:production": "cross-env NODE_ENV=production eslint src"
+    }
+}

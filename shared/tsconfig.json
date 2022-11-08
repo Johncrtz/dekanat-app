@@ -1,0 +1,20 @@
+{
+    "include": ["./src/**/*.ts"],
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "lib": ["es2020", "DOM"],
+        "target": "es2019",
+        "isolatedModules": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "allowJs": true,
+        "checkJs": true,
+        "outDir": "./dist",
+        "composite": true,
+        "rootDir": "./src"
+    }
+}

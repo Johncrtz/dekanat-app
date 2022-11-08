@@ -1,0 +1,74 @@
+<h1 id="high-level-overview-of-the-applications-structure">High-Level Overview of the Application’s Structure</h1>
+<p>Congratulations, and welcome to the illustrious <code>dekanat-app</code> project. You have been selected for Heidelberg’s finest software development task force, the top-secret spec-ops team known as the Ungeprüfte Hilfskräfte. In order to help you get your bearings in this rather complex system, here is an overview of how the app works.</p>
+<h2 id="technologies-components">Technologies, Components</h2>
+<p>The app consists of a Next.js web-application that the user accesses through the browser, a PostgreSQL database, and a standalone back-end written in node.js to mediate between the two. All node.js code is written in TypeScript.</p>
+<figure>
+<img src="overview_1.jpg" alt="Application Overview" /><figcaption aria-hidden="true">Application Overview</figcaption>
+</figure>
+<h2 id="database">Database</h2>
+<p>The database is a PostgreSQL server. Currently, it runs in a Docker container to facilitate development, we have not yet decided whether to maintain this in production.</p>
+<h2 id="back-end-the-core">Back-End: The Core</h2>
+<p>The back-end centers around an event bus system named IntuTable, whose main module is called the “core”. The core loads a given list of plugins on start-up, each of which listens on a <em>channel</em> and exposes certain <em>methods</em>. These can be called by passing a JSON object to the core’s <code>request</code> method. Example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> db from <span class="st">&quot;@intutable/database/dist/requests&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// note: Do not construct requests manually like this...</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>const rows <span class="op">=</span> await core<span class="op">.</span><span class="at">events</span><span class="op">.</span><span class="fu">request</span>({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">:</span> <span class="st">&quot;database&quot;</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    method<span class="op">:</span> <span class="st">&quot;select&quot;</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    table<span class="op">:</span> <span class="st">&quot;users&quot;</span><span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">:</span> [<span class="st">&quot;email&quot;</span><span class="op">,</span> <span class="st">&quot;password&quot;</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ... instead use the request constructor that the database</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// plugin exports:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>const rows <span class="op">=</span> await core<span class="op">.</span><span class="at">events</span><span class="op">.</span><span class="fu">request</span>(</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span><span class="fu">select</span>(<span class="st">&quot;users&quot;</span><span class="op">,</span> { columns<span class="op">:</span> [<span class="st">&quot;email&quot;</span><span class="op">,</span> <span class="st">&quot;password&quot;</span>] })</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>In addition to this basic remote procedure call (RPC) functionality, the core supports events called <em>notifications</em>. A request is directed <em>at</em> one plugin, a notification comes <em>from</em> a plugin. Only one plugin may listen for requests on a given channel, but all plugins can listen for all notifications. A request must have a response, a notification need not. This enables plugins to interact very closely with each other while remaining separated, independent functional units. Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// database plugin:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>core<span class="op">.</span><span class="at">events</span><span class="op">.</span><span class="fu">listenForRequests</span>(<span class="st">&quot;database&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;deleteTable&quot;</span><span class="op">,</span> (request) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">deleteTable</span>(request)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        core<span class="op">.</span><span class="at">events</span><span class="op">.</span><span class="fu">notify</span>({</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            channel<span class="op">:</span> <span class="st">&quot;database&quot;</span><span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            method<span class="op">:</span> <span class="st">&quot;tableDeleted&quot;</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            name<span class="op">:</span> request<span class="op">.</span><span class="at">name</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">// metadata plugin:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>core<span class="op">.</span><span class="at">events</span><span class="op">.</span><span class="fu">listenForNotifications</span>(<span class="st">&quot;database&quot;</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">&quot;tableDeleted&quot;</span><span class="op">,</span> (request) <span class="kw">=&gt;</span> <span class="fu">deleteTableMetadata</span>(request))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">// ==&gt; database plugin can control higher-level metadata plugin</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">// without being dependent on it in any way</span></span></code></pre></div>
+<p>An overview of the most important plugins:<br />
+- <code>database</code>: Wraps the <a href="https://knexjs.org/"><code>knex</code></a> library for basic, unconstrained database access.<br />
+- <code>project-management</code>: Allows creating and editing SQL tables with metadata and assigning of these tables to projects and users.<br />
+- <code>lazy-views</code>: Built on <code>project-management</code>, provides SQL-like views that can contain links to other tables/views as well as filtering, sorting, and grouping.<br />
+- <code>http</code>: Turns the core into a simple web server, allowing other processes to send requests and notifications via HTTP.<br />
+- <code>user-authentication</code>: Restricts access to the <code>http</code> plugin with a standard HTTP authentication scheme.</p>
+<h2 id="dekanat-app-project-structure"><code>dekanat-app</code>: Project Structure</h2>
+<p>Looking in the <code>package.json</code>, you will find five workspaces:<br />
+- <code>database</code>: The Dockered PG database.<br />
+- <code>shared</code>: Some definitions and configs shared across the other workspaces.<br />
+- <code>dekanat-app-plugin</code>: A Core plugin that allows the GUI to make highly specific, privileged requests, such as setting up example data for dev mode or handling its own table abstraction (which we will see in the next section)<br />
+- <code>backend</code>: The script that starts the Core process.<br />
+- <code>gui</code>: The Next.js application that serves as a front-end. It is a full web application; user inputs are serviced entirely through its own API endpoints. These, however, get their data from the <code>core</code> back-end.</p>
+<p>To avoid confusion with the terms “back-end” and “front-end”, we will use the terms “client” and “server” for the parts of the Next.js app, and refer to the standalone back-end as “core”.</p>
+<figure>
+<img src="overview_2.jpg" alt="Application Overview II: Components" /><figcaption aria-hidden="true">Application Overview II: Components</figcaption>
+</figure>
+<h2 id="dekanat-app-how-it-works"><code>dekanat-app</code>: How it Works</h2>
+<h3 id="tables-and-views">Tables and Views</h3>
+<p>If you haven’t already, this is probably a good time to launch the app and try it out (see <code>/README.md</code> for a basic intro)</p>
+<p>After logging in, you should be redirected to the project page and see one project named “Fakultät MathInf”. Click on it to see its table list, then select “Personen”. In the middle of the screen is the table itself. You can click on a cell and start typing to edit it. The toolbar has “add column”, “add row”, “add link”, an export button (download icon) and a “detail view” button. You can experiment with these, they are fairly self-explanatory. The “add link” button allows you to add a link to another table. To see an example of this, check the “Rollen” table. If you click on a cell in the “Nachname” column, you can pick a different record to link with. If you do, the corresponding “Vorname” cell will change, too.</p>
+<p>To accomplish the linking functionality, what the user sees as a table is actually a view. The app manages the view and the underlying table, which contains the actual data, as a unit. This abstraction happens between the client and server in the Next.js app. What the user sees as views is implemented as a set of views on top of the “table” view:</p>
+<figure>
+<img src="tables_views.jpg" alt="How Tables and Views are Implemented" /><figcaption aria-hidden="true">How Tables and Views are Implemented</figcaption>
+</figure>
+<h3 id="gui-workspace-structure">GUI: Workspace Structure</h3>
+<p>The GUI workspace is probably larger than all other code of the app combined. To help you get into it nonetheless, here is an overview of the most important source directories and files:<br />
+- <code>pages</code>: The pages that the user can navigate around.<br />
+- <code>pages/api</code>: API endpoints, i.e. routes that the GUI can request data from. All database-relevant actions, such as creating, loading, and editing tables, are performed by addressing one of these routes.<br />
+- <code>api</code>: Library of utilities for communication with API routes and with the Core.<br />
+- <code>components</code>: A library of React (display) components for the front-end. To get an idea of which components are used how, it is suggested you look into the table page at <code>pages/project/[projectId]/table/[tableId].tsx</code>. - <code>hooks</code>: A library of <a href="https://reactjs.org/docs/hooks-intro.html">hooks</a>: components that are not displayed and only capture app logic or state.</p>

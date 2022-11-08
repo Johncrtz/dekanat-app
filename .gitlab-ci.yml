@@ -1,0 +1,40 @@
+image: node:16.8.0
+
+stages:
+    - lint
+    - lint-production
+    - build
+
+before_script:
+    - npm config set //${CI_SERVER_HOST}/api/v4/projects/29926955/packages/npm/:_authToken ${CI_JOB_TOKEN}
+    - npm install
+
+lint:
+    stage: lint
+    script:
+        - npm run lint
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+          when: never
+        - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+          when: never
+        - when: on_success
+
+lint-production:
+    stage: lint-production
+    script:
+        - npm run lint-production
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+
+build:
+    stage: build
+    script:
+        - npm run build -w dekanat-app-plugin
+        - npm run build -w backend
+        - npm run build -w gui
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+        - if: $CI_COMMIT_BRANCH == "develop"

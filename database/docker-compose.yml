@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+    pg-database:
+        build: .
+        ports:
+            - "5432:5432"
+        volumes:
+         - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
