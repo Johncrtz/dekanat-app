@@ -14,7 +14,7 @@ main()
 
 /**
  * Start a {@link Core}. Since we have the HTTP plugin installed, it will keep
- * running and listen for requests. im only local
+ * running and listen for requests. im  local
  */
 async function main() {
     await waitForDatabase().catch(e => crash<Core>(e))
