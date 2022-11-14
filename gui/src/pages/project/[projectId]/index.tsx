@@ -27,13 +27,13 @@ import { makeError } from "utils/error-handling/utils/makeError"
 import { prepareName } from "utils/validateName"
 import { withSSRCatch } from "utils/withSSRCatch"
 
-type TableContextMenuProps = {
+type ContextMenuProps = {
     anchorEL: Element
     open: boolean
     onClose: () => void
     children?: React.ReactNode
 }
-const TableContextMenu: React.FC<TableContextMenuProps> = props => {
+const ContextMenu: React.FC<ContextMenuProps> = props => {
     const theme = useTheme()
     return (
         <Menu
@@ -133,7 +133,7 @@ const TableCard: React.FC<TableCardProps> = props => {
             </Card>
 
             {anchorEL && (
-                <TableContextMenu
+                <ContextMenu
                     anchorEL={anchorEL}
                     open={anchorEL != null}
                     onClose={handleCloseContextMenu}
@@ -155,11 +155,74 @@ const TableCard: React.FC<TableCardProps> = props => {
                     >
                         Löschen
                     </Box>
-                </TableContextMenu>
+                </ContextMenu>
             )}
         </>
     )
 }
+
+type AddInputformCardProps = {
+    //handleCreate: () => Promise<void> add when  handleCreateInputform is implemented
+    children?: React.ReactNode
+}
+
+const TableformProjectCard: React.FC<AddInputformCardProps> = props => {
+    const theme = useTheme()
+    return (
+        <Card
+        //implement onClick for creating TableformProjectCard
+            sx={{
+                minWidth: 150,
+                minHeight: 150,
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                "&:hover": {
+                    bgcolor: theme.palette.action.hover,
+                },
+            }}
+        >
+            <CardContent>{props.children}</CardContent>
+        </Card>
+    )
+}
+
+type InputformCardProps = {
+    project: ProjectDescriptor
+}
+
+const InputformCard : React.FC<InputformCardProps> = ({ project }) => {
+    const router = useRouter()
+    const theme = useTheme()
+
+    const handleOnClick = () => {
+        router.push("/project/" + project.id + "/inputform/1")  //opens corresponding table
+    }
+
+    return (
+        <>
+            <Card
+                onClick={handleOnClick}
+                sx={{
+                    minWidth: 150,
+                    minHeight: 150,
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    "&:hover": {
+                        bgcolor: theme.palette.action.hover,
+                    },
+                }}
+            >
+                <CardContent>Input Form</CardContent>
+            </Card>
+        </>
+    )
+}
+
+
 
 type TableListProps = {
     project: ProjectDescriptor
@@ -196,6 +259,9 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
             snackError(errMsg)
         }
     }
+
+    
+
 
     const handleRenameTable = async (tableView: ViewDescriptor) => {
         try {
@@ -236,6 +302,18 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
         }
     }
 
+    const handleCreateInputform = () => {
+       //ToDo
+    }
+
+    const handleRenameInputform = () => {
+        //ToDO
+     }
+
+     const handleDeleteInputform = () => {
+        //ToDO
+     }
+
     if (error) return <>Error: {error}</>
     if (tables == null) return <CircularProgress />
 
@@ -250,7 +328,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
             >
                 Zurück zur{" "}
                 <Link
-                    href={`/projects`}
+                    href={`/projects`}                               //Nav 1 site back
                     muiLinkProps={{
                         underline: "hover",
                         color: theme.palette.primary.main,
@@ -260,7 +338,12 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                     {"Gesamtübersicht"}
                 </Link>
             </Typography>
-            <Grid container spacing={2}>
+
+            <div>
+                <h2>Add a Table</h2>
+            </div>
+
+            <Grid container spacing={2}>                                     
                 {tables.map((tbl: ViewDescriptor, i: number) => (
                     <Grid item key={i}>
                         <TableCard
@@ -269,7 +352,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                             handleRename={handleRenameTable}
                             project={project}
                         >
-                            {tbl.name}
+                            {tbl.name}                                      
                         </TableCard>
                     </Grid>
                 ))}
@@ -278,6 +361,27 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                         <AddIcon />
                     </TableProjectCard>
                 </Grid>
+            </Grid>
+
+            <div>
+                <h2>Add a Inputform</h2>
+            </div>
+
+            <Grid container spacing={2}>
+
+                <Grid item>
+                    <InputformCard project={project}></InputformCard>
+                </Grid>
+                
+                <Grid item>
+                     <TableformProjectCard > 
+                        <AddIcon />
+                    </TableformProjectCard>
+                </Grid>
+
+
+                
+
             </Grid>
         </>
     )

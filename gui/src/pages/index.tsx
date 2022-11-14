@@ -12,6 +12,7 @@ const Home: NextPage = () => {
         <>
             <MetaTitle title="Startseite" />
             <Typography variant={"h4"}>Startseite</Typography>
+
             <Divider />
             <Typography sx={{ mt: 2 }}>
                 {user?.isLoggedIn ? (
