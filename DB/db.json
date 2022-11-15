@@ -1,0 +1,51 @@
+{
+"exampleTable": [
+   {
+     "Datum" : "11.11.2022",
+     "Name": "Hildenbrand",
+     "Vorname": "John",
+     "Interdisziplinär?": "Ja",
+     "Betreuer Fakultätsmitglied": "Kooptiert",
+     "Falltyp": "Zul-Antrag-Neu",
+     "Unterlagen komplett?": "Ja,in Heibox",
+     "Status / Todo": "Annahme Brief erstellen",
+     "Entscheidung": "Zugel. mit 1 Aufl.",
+     "Auflage 1": "TheoA",
+     "Auflage 2": "TheoB",
+     "Auflage 3": null,
+     "Kommentar": null
+   },
+   {
+     "Datum" : "10.11.2022",
+     "Name": "Ajay",
+     "Vorname": "Bhatia",
+     "Interdisziplinär?": "Ja",
+     "Betreuer Fakultätsmitglied": "Kooptiert",
+     "Falltyp": "Änd-Kommission",
+     "Unterlagen komplett?": "Ja, in Heibox",
+     "Status / Todo": "Abgeschlossen" ,
+     "Entscheidung": "Zugel. ohne Aufl.",
+     "Auflage 1": null,
+     "Auflage 2": null,
+     "Auflage 3": null,
+     "Kommentar": null
+   },
+   {
+     "Datum" : "12.11.2022",
+     "Name": "Xu",
+     "Vorname": "Xiaoyuan",
+     "Interdisziplinär?": "Ja",
+     "Betreuer Fakultätsmitglied": "Nein",
+     "Falltyp": "Zul-Antrag-Neu",
+     "Unterlagen komplett?": "Ja, in Heibox",
+     "Status / Todo": "Scans fehlerhaft",
+     "Entscheidung": "Promotionsausschuss entscheidet",
+     "Auflage 1": "TheoA",
+     "Auflage 2": null,
+     "Auflage 3": null,
+     "Kommentar": "Scans nachreichen"
+   }
+  ]
+}
+
+
