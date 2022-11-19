@@ -1,0 +1,28 @@
+{
+"exampleTable": [
+   {
+    
+     
+     "ID" : 1,
+     "Datum" : [{"Values": ["Date"], "Required": false}],
+     "Name": [{"Values": ["Name"], "Required": false}],
+     "Vorname": [{"Values": ["First name"], "Required": false}],
+     "Interdisziplinär?": [{"Values": ["Interdisz"], "Required": false}],
+     "Betreuer Fakultätsmitglied": [{"Values": ["Kooptiert"], "Required": false}],
+     "Falltyp": [{"Values": ["Zul-Antrag-Neu"], "Required": false}],
+     "Unterlagen komplett?": [{"Values": ["Ja,in Heibox"], "Required": false}],
+     "Status / Todo": [{"Values": ["Annahme Brief erstellen"], "Required": false}],
+     "Entscheidung": [{"Values": ["Zugel. mit 1 Aufl."], "Required": false}],
+     "Auflage 1":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
+     "Auflage 2":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
+     "Auflage 3":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
+     "Kommentar":  "Kommentar"
+   
+    }
+   
+  ]
+}
+
+
+
+
