@@ -4,18 +4,19 @@
     
      
      "ID" : 1,
-     "Datum" : [{"Values": ["Date"], "Required": false}],
-     "Name": [{"Values": ["Name"], "Required": false}],
-     "Vorname": [{"Values": ["First name"], "Required": false}],
-     "Interdisziplinär?": [{"Values": ["Interdisz"], "Required": false}],
-     "Betreuer Fakultätsmitglied": [{"Values": ["Kooptiert"], "Required": false}],
-     "Falltyp": [{"Values": ["Zul-Antrag-Neu"], "Required": false}],
-     "Unterlagen komplett?": [{"Values": ["Ja,in Heibox"], "Required": false}],
-     "Status / Todo": [{"Values": ["Annahme Brief erstellen"], "Required": false}],
-     "Entscheidung": [{"Values": ["Zugel. mit 1 Aufl."], "Required": false}],
-     "Auflage 1":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
-     "Auflage 2":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
-     "Auflage 3":  [{"Values": ["TheoA","TheoB","TheoC"], "Required": false}],
+     "Datum" : {"Values": ["Date"], "Type": "Input", "Required": true},
+     "Name": {"Values": ["Name"], "Type": "Input", "Required": true},
+     "Vorname": {"Values": ["First name"], "Type": "Input", "Required": false},
+     "Interdisziplinär?": {"Values": ["Interdisz"], "Type": "Input", "Required": false},
+     "Betreuer Fakultätsmitglied": {"Values": ["Kooptiert"], "Type": "Input", "Required": false},
+     "Falltyp": {"Values": ["Zul-Antrag-Neu"], "Type": "Input", "Required": false},
+     "Unterlagen komplett?": {"Values": ["Ja,in Heibox"], "Type": "Input", "Required": false},
+     "Status / Todo": {"Values": ["Annahme Brief erstellen"], "Type": "Input", "Required": false},
+     "Entscheidung": {"Values": ["Zugel. mit 1 Aufl."], "Type": "Input", "Required": false},
+     "Auflage 1":  {"Values": ["TheoA","TheoB","TheoC"], "Type": "Select", "Required": false},
+     "Auflage 2":  {"Values": ["TheoA","TheoB","TheoC"], "Type": "Select", "Required": false},
+     "Auflage 3":  {"Values": ["TheoA","TheoB","TheoC"], "Type": "Select", "Required": false},
+     "Dokument" : {"Values": ["Dokument"], "Type": "File", "Required": false},
      "Kommentar":  "Kommentar"
    
     }

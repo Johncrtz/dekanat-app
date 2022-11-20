@@ -9,7 +9,8 @@ import {
     Typography,
     Button,
     Card,
-    CardContent
+    CardContent,
+    TextField,
 } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 import Link from "components/Link"
@@ -26,30 +27,62 @@ import Idb3 from "DB/Idb3"
 import { json } from "stream/consumers";
 import { TableChart } from "@mui/icons-material";
 
-
-
-
 const InputformPage = () => {
   const theme = useTheme()
   const values:Idb = db.exampleTable[0]
   const arr = Object.entries(values)
-  
 
     return (
         <>
-        <Grid container spacing={2}> 
+        <Grid 
+        container 
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"> 
              {arr.map((item, i:number) => (
-                <Grid item key= {i}>
+                <Grid item xs={6} key= {i}>
                   <form>
-                    <label>{item[0]}</label>
-                    <input 
-                      type="text"
-                      required/>
+                    {(() => {
+                      if (item[1]['Type'] == "Input") {
+                        return (
+                          <TextField required={item[1]['Required']} label={item[0]} variant="filled" />
+                        )
+                      }
+                      else if (item[1]['Type'] == "Select") {
+                        return (
+                          <FormControl variant="filled" sx={{ minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-filled-label">{item[0]}</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-filled-label"
+                              id="demo-simple-select-filled"
+                              value={item[1]['Value']}
+                              label={item[0]}
+                            >
+                              {item[1]['Values'].map((item2: any, i: number) => (
+                                <MenuItem value={item2} key={i}>{item2}</MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        )
+                      }
+                      else if (item[1]['Type'] == "File") {
+                        <Button
+                          variant="contained"
+                          component="label"
+                        >
+                          Upload File
+                          <input
+                            type="file"
+                            hidden
+                          />
+                        </Button>
+                      }
+                    })()}
                   </form>
                 </Grid>
-             )
-             )}
-
+             ))}
+             <Button variant="contained">Submit</Button> 
         </Grid>
        </>
     )
