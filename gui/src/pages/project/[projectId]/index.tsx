@@ -166,11 +166,11 @@ type AddInputformCardProps = {
     children?: React.ReactNode
 }
 
-const TableformProjectCard: React.FC<AddInputformCardProps> = props => {
+const InputformProjectCard: React.FC<AddInputformCardProps> = props => {
     const theme = useTheme()
     return (
         <Card
-        //implement onClick for creating TableformProjectCard
+        //implement onClick for creating InputformProjectCard
             sx={{
                 minWidth: 150,
                 minHeight: 150,
@@ -364,7 +364,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
             </Grid>
 
             <div>
-                <h2>Add a Inputform</h2>
+                <h2>Add an Input Form</h2>
             </div>
 
             <Grid container spacing={2}>
@@ -374,9 +374,9 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                 </Grid>
                 
                 <Grid item>
-                     <TableformProjectCard > 
+                     <InputformProjectCard > 
                         <AddIcon />
-                    </TableformProjectCard>
+                    </InputformProjectCard>
                 </Grid>
 
 

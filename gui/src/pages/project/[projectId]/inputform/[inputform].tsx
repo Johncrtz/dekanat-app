@@ -67,16 +67,18 @@ const InputformPage = () => {
                         )
                       }
                       else if (item[1]['Type'] == "File") {
-                        <Button
-                          variant="contained"
-                          component="label"
-                        >
-                          Upload File
-                          <input
-                            type="file"
-                            hidden
-                          />
-                        </Button>
+                        return (
+                          <Button
+                            variant="contained"
+                            component="label"
+                          >
+                            Dokument 1
+                            <input
+                              type="file"
+                              hidden
+                            />
+                          </Button>
+                        )
                       }
                     })()}
                   </form>
