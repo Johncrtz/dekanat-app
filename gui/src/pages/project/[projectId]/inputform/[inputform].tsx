@@ -67,6 +67,7 @@ const InputformPage = () => {
                         )
                       }
                       else if (item[1]['Type'] == "File") {
+                        return (
                         <Button
                           variant="contained"
                           component="label"
@@ -77,6 +78,7 @@ const InputformPage = () => {
                             hidden
                           />
                         </Button>
+                        )
                       }
                     })()}
                   </form>
