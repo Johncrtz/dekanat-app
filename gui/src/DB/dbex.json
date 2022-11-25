@@ -4,9 +4,6 @@
         "Form Title": "Test Form",
         "Form Description": "This is an example form",
         "Page Count": 2,
-
-        "__comment": "Seperate pages by individual nested objects. If an input is used, place nothing in the selects array",
-
         "Pages": 
         [{
             "Page Title": "Page 1",
