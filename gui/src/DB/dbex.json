@@ -35,6 +35,15 @@
                     "isRequired": false,
                     "Table ID": "",
                     "Selects": []
+                },
+                {
+                    "Question Number": 4,
+                    "Question": "Age",
+                    "Question Type": "Number",
+                    "Question Description": "Tell me your age",
+                    "isRequired": true,
+                    "Table ID": "",
+                    "Selects": []
                 }
             ]
         },
@@ -47,7 +56,7 @@
                     "Question": "Example Question",
                     "Question Type": "Select",
                     "Question Description": "",
-                    "isRequired": false,
+                    "isRequired": true,
                     "Table ID": "",
                     "Selects": ["Yes", "No", "Maybe"]
                 },

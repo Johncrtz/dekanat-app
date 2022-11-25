@@ -12,10 +12,58 @@ import {
 import { styled, useTheme } from "@mui/material/styles"
 import React, { useEffect, useState } from "react"
 import db from "DB/dbex.json"
-import Idb from "DB/Idbex"
+import Idb, { Question } from "DB/Idbex"
 import { json } from "stream/consumers";
 
-const InputformPage = () => {
+const fieldInput = (question: Question) => {
+  if (question['Question Type'] == 'Input') {
+    return (
+      <TextField 
+        required={Boolean(question['isRequired'])} 
+        label={question['Question']} 
+        variant='filled' 
+        sx={{ width: 1}}
+      />
+    )
+  }
+  
+  else if (question['Question Type'] == 'Select') {
+    return (
+      <TextField
+        select
+        required={Boolean(question['isRequired'])} 
+        label={question['Question']}
+        sx={{ width: 1 }}
+        variant='filled'
+      >
+        {question['Selects'].map((option: any, i: number) => (
+          <MenuItem value={option} key={i}>
+            {option}
+          </MenuItem>
+        ))}
+      </TextField>
+    )
+  }
+  else if (question['Question Type'] == 'Select') {
+    return (
+      <TextField
+        select
+        required={Boolean(question['isRequired'])} 
+        label={question['Question']}
+        sx={{ width: 1 }}
+        variant='filled'
+      >
+        {question['Selects'].map((option: any, i: number) => (
+          <MenuItem value={option} key={i}>
+            {option}
+          </MenuItem>
+        ))}
+      </TextField>
+    )
+  }
+}
+
+const inputformPage = () => {
   const theme = useTheme()
   const values:Idb = db.exampleTable
   let currPage = 0
@@ -27,9 +75,9 @@ const InputformPage = () => {
           style={{'padding': 40}}
         >
           <Grid
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
           >
             <Grid item xs={12}>
               <span style={{...theme.typography.h4, }}>{values['Form Title']}</span>
@@ -38,9 +86,11 @@ const InputformPage = () => {
               <span style={{...theme.typography.body1}}>{values['Form Description']}</span>
             </Grid>
               {values['Pages'].map((page, i:number) => (
-                <Grid item xs = {12} key={i}>
+                <Grid item xs={12} key={i}>
                 {values['Pages'][i]['Questions'].map((question: any, j: number) => (
-                  <Grid key={j}>{question['Question']}</Grid>
+                  <Grid key={j}>
+                    {fieldInput(question)}
+                  </Grid>
                 ))}
                 </Grid>
               ))}
@@ -49,18 +99,18 @@ const InputformPage = () => {
                   <Grid item xs={6} key= {i}>
                     <form>
                       {(() => {
-                        if (item[1]['Type'] == "Input") {
+                        if (item[1]['Type'] == 'Input') {
                           return (
-                            <TextField required={item[1]['Required']} label={item[0]} variant="filled" />
+                            <TextField required={item[1]['Required']} label={item[0]} variant='filled' />
                           )
                         }
-                        else if (item[1]['Type'] == "Select") {
+                        else if (item[1]['Type'] == 'Select') {
                           return (
-                            <FormControl variant="filled" sx={{ minWidth: 120 }}>
-                              <InputLabel id="demo-simple-select-filled-label">{item[0]}</InputLabel>
+                            <FormControl variant='filled' sx={{ minWidth: 120 }}>
+                              <InputLabel id='demo-simple-select-filled-label'>{item[0]}</InputLabel>
                               <Select
-                                labelId="demo-simple-select-filled-label"
-                                id="demo-simple-select-filled"
+                                labelId='demo-simple-select-filled-label'
+                                id='demo-simple-select-filled'
                                 value={item[1]['Value']}
                                 label={item[0]}
                               >
@@ -71,15 +121,15 @@ const InputformPage = () => {
                             </FormControl>
                           )
                         }
-                        else if (item[1]['Type'] == "File") {
+                        else if (item[1]['Type'] == 'File') {
                           return (
                           <Button
-                            variant="contained"
-                            component="label"
+                            variant='contained'
+                            component='label'
                           >
                             Upload File
                             <input
-                              type="file"
+                              type='file'
                               hidden
                             />
                           </Button>
@@ -92,9 +142,9 @@ const InputformPage = () => {
 
             <Grid item xs={12}>
               <Button 
-                variant="contained" 
+                variant='contained' 
                 style={{...theme.colorScheme, ...theme.typography}} 
-                onClick = {() => {console.log("Button clicked")}}
+                onClick = {() => {console.log('Button clicked')}}
               >
                 Submit
               </Button> 
@@ -105,8 +155,8 @@ const InputformPage = () => {
         
 }
  
-export default InputformPage;
+export default inputformPage;
 
 //function useAPI(): { project: any } {
-//    throw new Error("Function not implemented.")
+//    throw new Error('Function not implemented.')
 //}

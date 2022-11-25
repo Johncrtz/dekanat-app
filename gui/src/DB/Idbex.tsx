@@ -1,4 +1,4 @@
-interface Question {
+export interface Question {
     "Question Number": Number,
     "Question": String,
     "Question Type": String, 
