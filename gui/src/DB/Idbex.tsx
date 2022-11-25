@@ -21,3 +21,5 @@ export interface Form {
     "__comment": String,
     "Pages": Page[]
 }
+
+export default Form
