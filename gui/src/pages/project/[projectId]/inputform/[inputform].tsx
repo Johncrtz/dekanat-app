@@ -9,7 +9,7 @@ import {
     Paper,
     TextField,
 } from "@mui/material"
-import { styled, useTheme } from "@mui/material/styles"
+import { styled, Theme, useTheme } from "@mui/material/styles"
 import React, { useEffect, useState } from "react"
 import db from "DB/dbex.json"
 import Idb, { Question } from "DB/Idbex"
@@ -22,19 +22,19 @@ const fieldInput = (question: Question) => {
         required={Boolean(question['isRequired'])} 
         label={question['Question']} 
         variant='filled' 
-        sx={{ width: 1}}
+        fullWidth
+        sx={{ marginTop: '10px', marginBottom: '10px' }}
       />
     )
-  }
-  
-  else if (question['Question Type'] == 'Select') {
+  } else if (question['Question Type'] == 'Select') {
     return (
       <TextField
         select
         required={Boolean(question['isRequired'])} 
         label={question['Question']}
-        sx={{ width: 1 }}
+        sx={{ marginTop: '10px', marginBottom: '10px' }}
         variant='filled'
+        fullWidth
       >
         {question['Selects'].map((option: any, i: number) => (
           <MenuItem value={option} key={i}>
@@ -43,22 +43,63 @@ const fieldInput = (question: Question) => {
         ))}
       </TextField>
     )
-  }
-  else if (question['Question Type'] == 'Select') {
+  } else if (question['Question Type'] == 'File') {
     return (
-      <TextField
-        select
-        required={Boolean(question['isRequired'])} 
-        label={question['Question']}
-        sx={{ width: 1 }}
-        variant='filled'
+        <TextField
+          required={Boolean(question['isRequired'])}
+          name={String(question['Question'])}
+          helperText={question['Question']}
+          type='file'
+          fullWidth
+          sx={{ textAlign: 'center', marginTop: '10px', marginBottom: '10px' }}
+        />
+    )
+  }
+}
+
+const FormButtons = (page: number, last: Number, theme: Theme) => {
+  if (page == 0) {
+    return (
+      <Button 
+        variant='contained' 
+        style={{...theme.colorScheme, ...theme.typography}} 
+        onClick = {() => {console.log('Button clicked')}}
       >
-        {question['Selects'].map((option: any, i: number) => (
-          <MenuItem value={option} key={i}>
-            {option}
-          </MenuItem>
-        ))}
-      </TextField>
+        Next
+      </Button> 
+    )
+  } else if (page == last) {
+    return (
+      <Button 
+        variant='contained' 
+        style={{...theme.colorScheme, ...theme.typography}} 
+        onClick = {() => {console.log('Button clicked')}}
+      >
+        Submit
+      </Button> 
+    )
+  } else {
+    return (
+      <>
+        <Grid item xs={6}>
+          <Button
+            variant='contained' 
+            style={{...theme.colorScheme, ...theme.typography}} 
+            onClick = {() => {console.log('Button clicked')}}
+          >
+            Previous
+          </Button> 
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            variant='contained' 
+            style={{...theme.colorScheme, ...theme.typography}} 
+            onClick = {() => {console.log('Button clicked')}}
+          >
+            Next
+          </Button> 
+        </Grid>
+      </>
     )
   }
 }
@@ -66,7 +107,8 @@ const fieldInput = (question: Question) => {
 const inputformPage = () => {
   const theme = useTheme()
   const values:Idb = db.exampleTable
-  let currPage = 0
+  let currPage = 1
+  const totalPages = values['Page Count']
   console.log(values)
 
     return (
@@ -83,7 +125,7 @@ const inputformPage = () => {
               <span style={{...theme.typography.h4, }}>{values['Form Title']}</span>
             </Grid>
             <Grid item xs={12}>
-              <span style={{...theme.typography.body1}}>{values['Form Description']}</span>
+              <span style={{...theme.typography.body1, paddingTop: '5px'}}>{values['Form Description']}</span>
             </Grid>
               {values['Pages'].map((page, i:number) => (
                 <Grid item xs={12} key={i}>
@@ -94,61 +136,9 @@ const inputformPage = () => {
                 ))}
                 </Grid>
               ))}
-            
-            {/* {values['Pages'].map((item, i:number) => (
-                  <Grid item xs={6} key= {i}>
-                    <form>
-                      {(() => {
-                        if (item[1]['Type'] == 'Input') {
-                          return (
-                            <TextField required={item[1]['Required']} label={item[0]} variant='filled' />
-                          )
-                        }
-                        else if (item[1]['Type'] == 'Select') {
-                          return (
-                            <FormControl variant='filled' sx={{ minWidth: 120 }}>
-                              <InputLabel id='demo-simple-select-filled-label'>{item[0]}</InputLabel>
-                              <Select
-                                labelId='demo-simple-select-filled-label'
-                                id='demo-simple-select-filled'
-                                value={item[1]['Value']}
-                                label={item[0]}
-                              >
-                                {item[1]['Values'].map((item2: any, i: number) => (
-                                  <MenuItem value={item2} key={i}>{item2}</MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          )
-                        }
-                        else if (item[1]['Type'] == 'File') {
-                          return (
-                          <Button
-                            variant='contained'
-                            component='label'
-                          >
-                            Upload File
-                            <input
-                              type='file'
-                              hidden
-                            />
-                          </Button>
-                          )
-                        }
-                      })()}
-                    </form>
-                  </Grid>
-              ))} */}
-
-            <Grid item xs={12}>
-              <Button 
-                variant='contained' 
-                style={{...theme.colorScheme, ...theme.typography}} 
-                onClick = {() => {console.log('Button clicked')}}
-              >
-                Submit
-              </Button> 
-            </Grid>
+            {/* <Grid item xs={12}> */}
+              {FormButtons(currPage, totalPages, theme)}
+            {/* </Grid> */}
           </Grid>
        </Paper>
     )

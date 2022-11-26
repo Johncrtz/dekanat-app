@@ -77,6 +77,15 @@
                     "isRequired": false,
                     "Table ID": "",
                     "Selects": []
+                 },
+                 {
+                    "Question Number": 4,
+                    "Question": "File Upload",
+                    "Question Type": "File",
+                    "Question Description": "W/ Description",
+                    "isRequired": true,
+                    "Table ID": "",
+                    "Selects": []
                  }
             ]
         }]
