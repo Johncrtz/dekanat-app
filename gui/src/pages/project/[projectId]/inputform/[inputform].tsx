@@ -94,7 +94,7 @@ const FormButtons = (page: number, last: Number, theme: Theme) => {
           <Button
             variant='contained' 
             style={{...theme.colorScheme, ...theme.typography}} 
-            onClick = {() => {console.log('Button clicked')}}
+            onClick = {() => {page -= 1; console.log(page)}}
           >
             Next
           </Button> 
@@ -138,6 +138,9 @@ const inputformPage = () => {
               ))}
             {/* <Grid item xs={12}> */}
               {FormButtons(currPage, totalPages, theme)}
+              <Button onClick = {() => {currPage -= 1; console.log(currPage)}}>
+                Cancel
+              </Button>
             {/* </Grid> */}
           </Grid>
        </Paper>
