@@ -54,11 +54,22 @@ const fieldInput = (question: Question) => {
           sx={{ textAlign: 'center', marginTop: '10px', marginBottom: '10px' }}
         />
     )
-  }
+  } else if (question['Question Type'] == 'Number')  {
+    return (
+      <TextField
+        required={Boolean(question['isRequired'])}
+        label={question['Question']}
+        type='number'
+        fullWidth
+        sx={{ marginTop: '10px', marginBottom: '10px' }}
+        variant='filled'
+      />
+    )
+  } 
 }
 
 const FormButtons = (page: number, last: Number, theme: Theme) => {
-  if (page == 0) {
+  if (page == 1) {
     return (
       <Button 
         variant='contained' 
@@ -108,7 +119,7 @@ const inputformPage = () => {
   const theme = useTheme()
   const values:Idb = db.exampleTable
   let currPage = 1
-  const totalPages = values['Page Count']
+  const totalPages = values['Pages'].length
   console.log(values)
 
     return (
@@ -138,9 +149,6 @@ const inputformPage = () => {
               ))}
             {/* <Grid item xs={12}> */}
               {FormButtons(currPage, totalPages, theme)}
-              <Button onClick = {() => {currPage -= 1; console.log(currPage)}}>
-                Cancel
-              </Button>
             {/* </Grid> */}
           </Grid>
        </Paper>

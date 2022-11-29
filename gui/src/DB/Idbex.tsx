@@ -17,7 +17,6 @@ interface Page {
 export interface Form {
     "Form Title": String,
     "Form Description": String,
-    "Page Count": Number,
     "Pages": Page[]
 }
 

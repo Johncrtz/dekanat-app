@@ -3,7 +3,6 @@
     {
         "Form Title": "Test Form",
         "Form Description": "This is an example form",
-        "Page Count": 2,
         "Pages": 
         [{
             "Page Title": "Page 1",
@@ -73,6 +72,24 @@
                     "Question Number": 3,
                     "Question": "A Third Example Question",
                     "Question Type": "Input",
+                    "Question Description": "W/ Description",
+                    "isRequired": false,
+                    "Table ID": "",
+                    "Selects": []
+                 },
+                 {
+                    "Question Number": 4,
+                    "Question": "A Sample Number Question",
+                    "Question Type": "Number",
+                    "Question Description": "W/ Description",
+                    "isRequired": false,
+                    "Table ID": "",
+                    "Selects": []
+                 },
+                 {
+                    "Question Number": 5,
+                    "Question": "A Sample Date Question",
+                    "Question Type": "Date",
                     "Question Description": "W/ Description",
                     "isRequired": false,
                     "Table ID": "",
