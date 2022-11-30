@@ -28,12 +28,16 @@ import {
     ORGANE_DATA,
     ROLLEN,
     ROLLEN_DATA,
+    PHD,
+    PHD_DATA,
 } from "./schema"
 
 let personen: Table
 let organe: Table
 let simpleTables: Table[]
 let rollen: Table
+let phd: Table
+
 
 export async function createExampleSchema(
     core: PluginLoader,
@@ -47,6 +51,7 @@ export async function createExampleSchema(
     organe = await createTable(core, sessionID, adminId, project.id, ORGANE)
     simpleTables = [personen, organe]
     rollen = await createTable(core, sessionID, adminId, project.id, ROLLEN)
+    phd = await createTable(core, sessionID, adminId, project.id, PHD)
 }
 async function createTable(
     core: PluginLoader,
@@ -163,6 +168,11 @@ export async function insertExampleData(
     await Promise.all(
         ROLLEN_DATA.map(r =>
             core.events.request(insert(sessionID, rollen.baseTable.key, r))
+        )
+    )
+    await Promise.all(
+        PHD_DATA.map(r =>
+            core.events.request(insert(sessionID, phd.baseTable.key, r))
         )
     )
 }

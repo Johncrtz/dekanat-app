@@ -414,3 +414,118 @@ export const ROLLEN_DATA = [
         "j#2_fk": 8,
     },
 ]
+
+export const PHD: TableSpec = {
+    name: "Phd",
+    columns: [
+        {
+            baseColumn: {
+                name: "_id",
+                type: ColumnType.increments,
+                options: [SimpleColumnOption.primary],
+            },
+            attributes: standardColumnAttributes("ID", "number", 0),
+        },
+        {
+            baseColumn: {
+                name: "index",
+                type: ColumnType.integer,
+                options: [],
+            },
+            attributes: indexColumnAttributes(1),
+        },
+        {
+            baseColumn: {
+                name: "firstname",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("First Name", "string", 2, true),
+        },
+        {
+            baseColumn: {
+                name: "lastname",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("Last Name", "string", 3),
+        },
+        {
+            baseColumn: {
+                name: "funfact",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("Fun Fact", "string", 4),
+        },
+        {
+            baseColumn: {
+                name: "age",
+                type: ColumnType.integer,
+            },
+            attributes: standardColumnAttributes("Age", "number", 5),
+        },
+        {
+            baseColumn: {
+                name: "firstquestion",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("Example Question", "string", 6),
+        },
+        {
+            baseColumn: {
+                name: "secondquestion",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("Another Example Question", "string", 7),
+        },
+        {
+            baseColumn: {
+                name: "thirdquestion",
+                type: ColumnType.text,
+            },
+            attributes: standardColumnAttributes("A Third Example Question", "string", 8),
+        },
+        {
+            baseColumn: {
+                name: "questionsamples",
+                type: ColumnType.integer,
+            },
+            attributes: standardColumnAttributes("A Sample Number Question", "number", 9),
+        },
+    ],
+    joins: [],
+}
+
+export const PHD_DATA = [
+    {
+        index: 0,
+        firstname: "Xiaoyuan",
+        lastname: "Xu",
+        funfact: "tall",
+        age: null,
+        firstquestion: "Who are you?",
+        secondquestion: "How old are you?",
+        thirdquestion: "Where are you from?",
+        questionsamples: 3,
+    },
+    {
+        index: 1,
+        firstname: "John",
+        lastname: "Hildenbrand",
+        funfact: "cool",
+        age: null,
+        firstquestion: "Who are you?",
+        secondquestion: "How old are you?",
+        thirdquestion: "Where are you from?",
+        questionsamples: 3,
+    },
+    {
+        index: 2,
+        firstname: "Ajay",
+        lastname: "Bhatia",
+        funfact: "cool",
+        age: null,
+        firstquestion: "Who are you?",
+        secondquestion: "How old are you?",
+        thirdquestion: "Where are you from?",
+        questionsamples: 3,
+    },
+]
