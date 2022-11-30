@@ -14,8 +14,17 @@ import React, { useEffect, useState } from "react"
 import db from "DB/dbex.json"
 import Idb, { Question } from "DB/Idbex"
 import { json } from "stream/consumers";
+import { CreateSelectItems } from "./createSelectItems"
 
-const fieldInput = (question: Question) => {
+
+// fill in all the questions types
+
+
+
+
+
+// Look at visitor patterns
+const fieldInput = (question: Question) => { 
   if (question['Question Type'] == 'Input') {
     return (
       <TextField 
@@ -142,7 +151,7 @@ const inputformPage = () => {
                 <Grid item xs={12} key={i}>
                 {values['Pages'][i]['Questions'].map((question: any, j: number) => (
                   <Grid key={j}>
-                    {fieldInput(question)}
+                    {CreateSelectItems[question['Question Type']]()}
                   </Grid>
                 ))}
                 </Grid>

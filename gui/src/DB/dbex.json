@@ -14,7 +14,8 @@
                     "Question Type": "Input",
                     "Question Description": "Enter your first name",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                 },
                 {
@@ -23,7 +24,8 @@
                     "Question Type": "Input",
                     "Question Description": "Enter your last name",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                 },
                 {
@@ -32,7 +34,8 @@
                     "Question Type": "Input",
                     "Question Description": "Tell me a fun fact!",
                     "isRequired": false,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                 },
                 {
@@ -41,7 +44,8 @@
                     "Question Type": "Number",
                     "Question Description": "Tell me your age",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                 }
             ]
@@ -56,7 +60,8 @@
                     "Question Type": "Select",
                     "Question Description": "",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": ["Yes", "No", "Maybe"]
                 },
                 {
@@ -65,7 +70,8 @@
                     "Question Type": "Input",
                     "Question Description": "",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                 },
                 {
@@ -74,7 +80,8 @@
                     "Question Type": "Input",
                     "Question Description": "W/ Description",
                     "isRequired": false,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                  },
                  {
@@ -83,7 +90,8 @@
                     "Question Type": "Number",
                     "Question Description": "W/ Description",
                     "isRequired": false,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                  },
                  {
@@ -92,7 +100,8 @@
                     "Question Type": "Date",
                     "Question Description": "W/ Description",
                     "isRequired": false,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                  },
                  {
@@ -101,7 +110,8 @@
                     "Question Type": "File",
                     "Question Description": "W/ Description",
                     "isRequired": true,
-                    "Table ID": "",
+                    "Table Name": "",
+                    "Column Name": "",
                     "Selects": []
                  }
             ]

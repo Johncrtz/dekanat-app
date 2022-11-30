@@ -203,7 +203,6 @@ const InputformCard : React.FC<InputformCardProps> = ({ project }) => {
     return (
         <>
             <Card
-                onClick={handleOnClick}
                 sx={{
                     minWidth: 150,
                     minHeight: 150,
@@ -374,7 +373,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                 </Grid>
                 
                 <Grid item>
-                     <TableformProjectCard > 
+                     <TableformProjectCard handleCreate={handleCreateTable} > 
                         <AddIcon />
                     </TableformProjectCard>
                 </Grid>
