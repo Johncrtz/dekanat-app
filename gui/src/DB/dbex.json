@@ -15,8 +15,7 @@
                     "Question Description": "Enter your first name",
                     "isRequired": true,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                 },
                 {
                     "Question Number": 2,
@@ -25,8 +24,7 @@
                     "Question Description": "Enter your last name",
                     "isRequired": true,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                 },
                 {
                     "Question Number": 3,
@@ -35,8 +33,7 @@
                     "Question Description": "Tell me a fun fact!",
                     "isRequired": false,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                 },
                 {
                     "Question Number": 4,
@@ -45,8 +42,7 @@
                     "Question Description": "Tell me your age",
                     "isRequired": true,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                 }
             ]
         },
@@ -57,12 +53,12 @@
             [{
                     "Question Number": 1,
                     "Question": "Example Question",
-                    "Question Type": "Select",
+                    "Question Type": "Dropdown",
                     "Question Description": "",
                     "isRequired": true,
                     "Table Name": "",
                     "Column Name": "",
-                    "Selects": ["Yes", "No", "Maybe"]
+                    "Values": ["Yes", "No", "Maybe"]
                 },
                 {
                     "Question Number": 2,
@@ -71,8 +67,7 @@
                     "Question Description": "",
                     "isRequired": true,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                 },
                 {
                     "Question Number": 3,
@@ -81,8 +76,7 @@
                     "Question Description": "W/ Description",
                     "isRequired": false,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                  },
                  {
                     "Question Number": 4,
@@ -91,8 +85,7 @@
                     "Question Description": "W/ Description",
                     "isRequired": false,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                  },
                  {
                     "Question Number": 5,
@@ -101,8 +94,7 @@
                     "Question Description": "W/ Description",
                     "isRequired": false,
                     "Table Name": "",
-                    "Column Name": "",
-                    "Selects": []
+                    "Column Name": ""
                  },
                  {
                     "Question Number": 4,
@@ -111,8 +103,17 @@
                     "Question Description": "W/ Description",
                     "isRequired": true,
                     "Table Name": "",
+                    "Column Name": ""
+                 },
+                 {
+                    "Question Number": 5,
+                    "Question": "Gender",
+                    "Question Type": "Buttons",
+                    "Question Description": "Pick your gender",
+                    "isRequired": true, 
+                    "Table Name": "",
                     "Column Name": "",
-                    "Selects": []
+                    "Values": ["Male", "Female", "Other"]
                  }
             ]
         }]

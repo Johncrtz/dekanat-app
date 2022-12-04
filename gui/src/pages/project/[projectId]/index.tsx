@@ -198,11 +198,14 @@ const InputformCard : React.FC<InputformCardProps> = ({ project }) => {
 
     const handleOnClick = () => {
         router.push("/project/" + project.id + "/inputform/1")  //opens corresponding table
+        
     }
 
     return (
         <>
             <Card
+                onClick={handleOnClick}
+
                 sx={{
                     minWidth: 150,
                     minHeight: 150,
@@ -363,7 +366,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
             </Grid>
 
             <div>
-                <h2>Add a Inputform</h2>
+                <h2>Add an Input form</h2>
             </div>
 
             <Grid container spacing={2}>
@@ -373,7 +376,7 @@ const TableList: React.FC<TableListProps> = ({ project }) => {
                 </Grid>
                 
                 <Grid item>
-                     <TableformProjectCard handleCreate={handleCreateTable} > 
+                     <TableformProjectCard > 
                         <AddIcon />
                     </TableformProjectCard>
                 </Grid>

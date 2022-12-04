@@ -1,22 +1,23 @@
 export interface Question {
-    "Question Number": Number,
-    "Question": String,
-    "Question Type": String, 
-    "Question Description": String,
-    "isRequired": Boolean,
-    "Table ID": String,
-    "Selects": String[]
+    "Question Number": number,
+    "Question": string,
+    "Question Type": string, 
+    "Question Description"?: string,
+    "isRequired"?: boolean,
+    "Table Name": string,
+    "Column Name": string,
+    "Values"?: string[]
 }
 
-interface Page {
-    "Page Title": String
-    "Page Description": String
+export interface Page {
+    "Page Title": string
+    "Page Description"?: string
     "Questions": Question[]
 }
 
 export interface Form {
-    "Form Title": String,
-    "Form Description": String,
+    "Form Title": string,
+    "Form Description"?: string,
     "Pages": Page[]
 }
 
