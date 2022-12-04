@@ -146,10 +146,10 @@ const inputformPage = () => {
 
   const [formData, setFormData] = useState({})
 
-  const handleInputChange = (e: any, q: string) => {
+  const handleInputChange = (e: any, q: Question) => {
     const value = e.target.value;
     let updatedFormData = {};
-    updatedFormData = {[q]: value};
+    updatedFormData = {[q['Question']]: [value, q['Table Name'], q['Column Name']]};
     setFormData(formData => ({
       ...formData,
       ...updatedFormData
@@ -181,7 +181,7 @@ const inputformPage = () => {
                       label={question['Question']} 
                       variant='filled' 
                       fullWidth
-                      onChange={event => handleInputChange(event, question['Question'])}
+                      onChange={event => handleInputChange(event, question)}
                       sx={{ marginTop: '10px', marginBottom: '10px' }}
                     />
                     {/* {fieldInput(question)} */}
